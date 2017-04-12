@@ -1,4 +1,4 @@
-package io.duna.eventbus
+package io.duna.eventbus.message
 
 /**
  * Represents a message carried by the event bus.
@@ -25,5 +25,7 @@ interface Message<out T> {
 
   val isError: Boolean
     get() = cause != null
+
+  operator fun <T> get(key: String) = headers[key]
 
 }

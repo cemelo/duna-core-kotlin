@@ -1,4 +1,4 @@
-package io.duna.eventbus
+package io.duna.eventbus.message
 
 interface MessageDispatcher {
 
