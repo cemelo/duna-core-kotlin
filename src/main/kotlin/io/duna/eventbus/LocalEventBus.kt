@@ -1,5 +1,6 @@
 package io.duna.eventbus
 
+import io.duna.core.DunaException
 import io.duna.eventbus.event.*
 import io.duna.eventbus.message.Message
 import io.duna.eventbus.message.MessageConsumer
@@ -89,10 +90,12 @@ open class LocalEventBus(private val eventPool: ExecutorService,
       this.execute(subscriber as DefaultSubscriber<T>) {
         subscriber.accept(message)
       }
-    } ?: throw EmptySubscriberListException("No subscribers registered for event ${message.target}.")
+    } ?: throw DunaException(message = "No subscribers registered for event ${message.target}.",
+      writableStackTrace = false)
 
     if (!subscriberExists)
-      throw EmptySubscriberListException("No subscribers registered for event ${message.target}.")
+      throw DunaException(message = "No subscribers registered for event ${message.target}.",
+        writableStackTrace = false)
   }
 
   override fun <T> dispatch(message: Message<T>) {

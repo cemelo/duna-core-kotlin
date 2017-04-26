@@ -4,6 +4,7 @@ import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.throws
 import io.duna.concurrent.EventLoopGroup
+import io.duna.core.DunaException
 import net.jodah.concurrentunit.Waiter
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
@@ -127,7 +128,7 @@ object LocalEventBusSpec : Spek({
       eventBus.removeAll("test")
 
       it ("should throw an exception stating that no subscribers exist") {
-        assertThat({eventBus.emit<Unit>("test").dispatch()}, throws<EmptySubscriberListException>())
+        assertThat({ eventBus.emit<Unit>("test").dispatch() }, throws<DunaException>())
       }
     }
 
